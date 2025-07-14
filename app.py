@@ -4,7 +4,7 @@ import datetime
 import os
 
 app = Flask(__name__)
-PATH = os.path.join("do-you-like-me-2","databse.db")
+PATH = os.path.join("Do-you-like-me-2","databse.db")
 app.secret_key = "very-very-secret"
 
 def db():
