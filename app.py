@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.secret_key = "very-very-secret"
 
 PATH = "/tmp/database.db"
+print("Database path:", PATH)
 
 
 db_dir = os.path.dirname(PATH)
