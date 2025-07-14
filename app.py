@@ -4,8 +4,8 @@ import datetime
 import os
 
 app = Flask(__name__)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PATH = os.path.join(BASE_DIR, "databse.db")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Directory of app.py
+PATH = os.path.join(BASE_DIR, "database.db")           # database.db in same folder
 app.secret_key = "very-very-secret"
 
 def db():
