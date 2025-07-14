@@ -1,18 +1,21 @@
-from flask import Flask,request,redirect,render_template,url_for,session
+from flask import Flask, request, redirect, render_template, url_for, session
 import sqlite3
 import datetime
 import os
 
 app = Flask(__name__)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Directory of app.py
-PATH = os.path.join(BASE_DIR, "database.db")           # database.db in same folder
 app.secret_key = "very-very-secret"
+
+PATH = "/tmp/database.db"
+
+
+db_dir = os.path.dirname(PATH)
+if not os.path.exists(db_dir):
+    os.makedirs(db_dir, exist_ok=True)
 
 def db():
     conn = sqlite3.connect(PATH)
     curr = conn.cursor()
-
-    # Create a table
     curr.execute('''
         CREATE TABLE IF NOT EXISTS response(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,14 +26,14 @@ def db():
             connection TEXT NOT NULL,
             irritating TEXT NOT NULL,
             improvements TEXT NOT NULL,
-            date DATE DEFAULT CURRENT_DATE,
-            time TIME DEFAULT CURRENT_TIME
+            date DATE DEFAULT (DATE('now')),
+            time TIME DEFAULT (TIME('now'))
         )
     ''')
-    
     conn.commit()
     conn.close()
-@app.route("/",methods=["POST","GET"])
+
+@app.route("/", methods=["POST", "GET"])
 def main():
     return redirect(url_for("formfun"))
 
@@ -45,10 +48,9 @@ def formfun():
         session["irritating"] = irritating = request.form.get("irritating")
         session["improvements"] = improvements = request.form.get("improvements")
 
-        # Get the current time
-        current_time = datetime.datetime.now()
+        # Use current UTC time string for insertion
+        current_time = datetime.datetime.utcnow().strftime("%H:%M:%S")
 
-        # Insert data into the database
         conn = sqlite3.connect(PATH)
         curr = conn.cursor()
         curr.execute('''
@@ -63,36 +65,35 @@ def formfun():
 
     return render_template("index.html")
 
-
-@app.route("/check",methods=["POST","GET"])
+@app.route("/check", methods=["POST", "GET"])
 def checkfun():
     name_ = session.get("name")
-    description_ = session["description"]
-    improvements_ = session["improvements"]
+    description_ = session.get("description")
+    improvements_ = session.get("improvements")
     opt = None
 
     if request.method == "POST":
         session["option"] = opt = request.form.get("sub")
-        return redirect(url_for("messagefun", option=opt ))
-    return render_template("check.html",name = name_,opinion = "awesome guy",description = description_,reason = "good", connection = "yes", irritating = "no", improvements = improvements_)
+        return redirect(url_for("messagefun", option=opt))
+    return render_template("check.html", name=name_, opinion="awesome guy", description=description_,
+                           reason="good", connection="yes", irritating="no", improvements=improvements_)
 
-@app.route("/message",methods=["POST","GET"])
+@app.route("/message", methods=["POST", "GET"])
 def messagefun():
     name = session.get("name")
     opt = session.get("option")
-    return render_template("message.html",name=name,option=opt)
+    return render_template("message.html", name=name, option=opt)
 
 @app.route('/show_data')
 def show_data():
     conn = sqlite3.connect(PATH)
-    conn.row_factory = sqlite3.Row  # So you can access columns by name
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM response")
     data = cursor.fetchall()
     conn.close()
     return render_template('show_data.html', data=data)
 
-
 if __name__ == "__main__":
     db()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
