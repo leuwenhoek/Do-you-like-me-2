@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You, My Friend! 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg,
+                    #fef7cd 0%,
+                    #fce7f3 25%,
+                    #f3e8ff 50%,
+                    #fce7f3 75%,
+                    #fef7cd 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            padding: 1rem;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background: linear-gradient(135deg, #fef7cd 0%, #fce7f3 25%, #f3e8ff 50%, #fce7f3 75%, #fef7cd 100%);
+            }
+
+            50% {
+                background: linear-gradient(135deg, #f3e8ff 0%, #fef7cd 25%, #fce7f3 50%, #fef7cd 75%, #f3e8ff 100%);
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .heart-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .heart {
+            font-size: 2.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .heart:nth-child(1) {
+            color: #ef4444;
+            animation-delay: 0s;
+        }
+
+        .heart:nth-child(2) {
+            color: #ec4899;
+            animation-delay: 0.3s;
+        }
+
+        .heart:nth-child(3) {
+            color: #8b5cf6;
+            animation-delay: 0.6s;
+        }
+
+        .heart:nth-child(4) {
+            color: #f59e0b;
+            animation-delay: 0.9s;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            50%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.2);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ef4444, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #6b7280;
+            font-weight: 500;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg,
+                    rgba(239, 68, 68, 0.03) 0%,
+                    rgba(236, 72, 153, 0.03) 25%,
+                    rgba(139, 92, 246, 0.03) 50%);
+            pointer-events: none;
+        }
+
+        .message-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .message-content p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .message-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fef7cd, #fce7f3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: #7c2d12;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .footer-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-heart {
+            font-size: 1.5rem;
+            color: #ef4444;
+            animation: pulse 2s infinite;
+        }
+
+        .footer-heart:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .footer-heart:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(0.95);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .container {
+                padding: 1rem 0;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .message-card {
+                padding: 1.5rem;
+                margin: 1rem 0;
+                border-radius: 1.5rem;
+            }
+
+            .message-content p {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .heart {
+                font-size: 2rem;
+            }
+
+            .heart-icons {
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .message-card {
+                padding: 1rem;
+                border-radius: 1rem;
+            }
+
+            .heart {
+                font-size: 1.5rem;
+            }
+        }
+
+        .message-content-p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .message-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            .heart,
+            .footer-heart {
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="heart-icons">
+                <span class="heart">💕</span>
+                <span class="heart">✨</span>
+                <span class="heart">🌟</span>
+                <span class="heart">💖</span>
+            </div>
+            <h1>My Friend, {{ name }}</h1>
+            <p class="subtitle">A heartfelt message from your buddy 🫶</p>
+        </div>
+
+        <div class="message-card">
+            <div class="message-content">
+                <p>I don't care what you and your peers think about me – I just always try to <span
+                        class="highlight">open up with you guys and myself</span>, to make superb memories for the
+                    future. 🌈</p>
+
+                <p>I don't know how much time more is left for me in Delhi, but it's confirmed that one day we have to
+                    be separate from each other – maybe for different reasons – and we can't say whether we'll meet in
+                    the future or not. 🏙️</p>
+
+                <p>Through these kinds of projects, I always try to convey a message that is <span
+                        class="highlight">meaningful and a little childish</span>. It might force you to think about why
+                    I always make this kind of stuff and share it with others, but it really means a lot to me. I will
+                    definitely remember these memories and always wish to meet up again and recreate those memories like
+                    we used to do in the school bus. ✨</p>
+
+                <p>Hope it's not that annoying and irritating to you. <span class="highlight">Thanks for your time and
+                        for making my several years more beautiful.</span> 💝</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p style="font-size: 1.125rem; color: #6b7280; font-weight: 500;">
+                With love and gratitude, always 🥰
+            </p>
+            <div class="footer-hearts">
+                <span class="footer-heart">💕</span>
+                <span class="footer-heart">💕</span>
+                <span class="footer-heart">💕</span>
+            </div>
+        </div>
+    </div>
+
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do you like me?</title>
+    <style>
+        /* Custom Cursor Styles */
+        * {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="%23ff69b4" stroke-width="2"/><circle cx="10" cy="10" r="3" fill="%23ff69b4"/></svg>'), auto;
+        }
+
+        /* Different cursors for different elements */
+        a, button, input[type="submit"], .radio-option {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">👆</text></svg>'), pointer;
+        }
+
+        input[type="text"], input[type="email"], textarea {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">✏️</text></svg>'), text;
+        }
+
+        input[type="radio"] {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">💕</text></svg>'), pointer;
+        }
+
+        h1, h2, h3 {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">✨</text></svg>'), default;
+        }
+
+        /* Alternative: CSS-only custom cursor */
+        .custom-cursor {
+            cursor: crosshair;
+        }
+
+        /* Animated cursor trail effect */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff69b4, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.7;
+            animation: fade 0.5s ease-out forwards;
+        }
+
+        @keyframes fade {
+            to {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fef3e2, #fce7f3, #f3e8ff);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #e91e63;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #fce7f3;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="email"]:focus {
+            outline: none;
+            border-color: #e91e63;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .radio-option:hover {
+            background: #fce7f3;
+            border-color: #e91e63;
+            transform: translateX(5px);
+        }
+        .radio-option input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .radio-option label {
+            margin: 0;
+            cursor: inherit;
+            font-weight: normal;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hey Friend! 💕</h1>
+        <p class="subtitle">Let's get real for a sec... I'm curious! 🌟</p>
+        
+        <form action="/form" method="post">
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Enter your name? 🌸</label>
+                <input type="text" name="name" id="name" placeholder="Your beautiful name here... ✨" required>
+            </div>
+
+            <!-- Opinion Question -->
+            <div class="form-group">
+                <label>What's your honest take on me? 🤗</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="opinion" id="awesome_guy" value="awesome_guy" required>
+                        <label for="awesome_guy">✨ You're absolutely amazing!</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="opinion" id="good_guy" value="good_guy" required>
+                        <label for="good_guy">😊 You're such a good person</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="opinion" id="okay_guy" value="okay_guy" required>
+                        <label for="okay_guy">👌 You're pretty cool</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="opinion" id="bad_guy" value="bad_guy" required>
+                        <label for="bad_guy">😬 Umm... I don't lie you</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description Field -->
+            <div class="form-group">
+                <label for="description">Describe me in one word 🎨</label>
+                <input type="text" name="description" id="description" placeholder="First word that pops into your mind... 💭" required>
+            </div>
+
+            <!-- Reason Question -->
+            <div class="form-group">
+                <label>Why do you hang out with me? 💕</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="reason" id="good" value="good" required>
+                        <label for="good">💖 I genuinely enjoy your company!</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="reason" id="forcing" value="forcing" required>
+                        <label for="forcing">😅 You keep dragging me everywhere! (but I love it)</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="reason" id="total_force" value="total_force" required>
+                        <label for="total_force">😭 You always force me!</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Connection -->
+            <div class="form-group">
+                <label>Will we remain friends after I move out of Delhi? 🚀</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="connection" id="yes" value="yes" required>
+                        <label for="yes">🌟 Absolutely! We're friends for life!</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="connection" id="think" value="think" required>
+                        <label for="think">🤔 I will ghost you</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="connection" id="no" value="no" required>
+                        <label for="no">🤡 chal na, tujhsee baat karu? </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Irritating Question -->
+            <div class="form-group">
+                <label>Did, I irritated you? 😬</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="irritating" id="never" value="no" required>
+                        <label for="never">😇 Never! You're an angel!</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="irritating" id="sometimes" value="sometimes" required>
+                        <label for="sometimes">🤷‍♀️ Sometimes, but that's normal!</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="irritating" id="often" value="yes" required>
+                        <label for="often">😤 Yeah... you are to annoying</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Improvements Field -->
+            <div class="form-group">
+                <label for="improvements">What should I work on? 🌱</label>
+                <input type="text" name="improvements" id="improvements" placeholder="except academics 🤡" required>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <input type="submit" value="See a special message from Ayush✨" class="submit-btn">
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: #666; font-size: 1.1em;">Thanks for being real with me, friend! 😉</p>
+            <div style="font-size: 1.5em;">💖 💕 💜</div>
+        </div>
+    </div>
+
+    <script>
+        // Optional: Animated cursor trail effect
+        document.addEventListener('mousemove', function(e) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                trail.remove();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
