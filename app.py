@@ -7,11 +7,7 @@ app = Flask(__name__)
 app.secret_key = "very-very-secret"
 
 PATH = "/tmp/database.db"
-
-
-db_dir = os.path.dirname(PATH)
-if not os.path.exists(db_dir):
-    os.makedirs(db_dir, exist_ok=True)
+print("Database path:", PATH)
 
 def db():
     conn = sqlite3.connect(PATH)
@@ -33,6 +29,9 @@ def db():
     conn.commit()
     conn.close()
 
+# Call db() here so the DB/table is created on every startup, even on Render
+db()
+
 @app.route("/", methods=["POST", "GET"])
 def main():
     return redirect(url_for("formfun"))
@@ -48,7 +47,6 @@ def formfun():
         session["irritating"] = irritating = request.form.get("irritating")
         session["improvements"] = improvements = request.form.get("improvements")
 
-        # Use current UTC time string for insertion
         current_time = datetime.datetime.utcnow().strftime("%H:%M:%S")
 
         conn = sqlite3.connect(PATH)
@@ -65,36 +63,7 @@ def formfun():
 
     return render_template("index.html")
 
-@app.route("/check", methods=["POST", "GET"])
-def checkfun():
-    name_ = session.get("name")
-    description_ = session.get("description")
-    improvements_ = session.get("improvements")
-    opt = None
-
-    if request.method == "POST":
-        session["option"] = opt = request.form.get("sub")
-        return redirect(url_for("messagefun", option=opt))
-    return render_template("check.html", name=name_, opinion="awesome guy", description=description_,
-                           reason="good", connection="yes", irritating="no", improvements=improvements_)
-
-@app.route("/message", methods=["POST", "GET"])
-def messagefun():
-    name = session.get("name")
-    opt = session.get("option")
-    return render_template("message.html", name=name, option=opt)
-
-@app.route('/show_data')
-def show_data():
-    conn = sqlite3.connect(PATH)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM response")
-    data = cursor.fetchall()
-    conn.close()
-    return render_template('show_data.html', data=data)
+# ...rest of your routes...
 
 if __name__ == "__main__":
-    print("Database path:", PATH)
-    db()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
