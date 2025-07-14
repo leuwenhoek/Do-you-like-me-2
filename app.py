@@ -7,7 +7,6 @@ app = Flask(__name__)
 app.secret_key = "very-very-secret"
 
 PATH = "/tmp/database.db"
-print("Database path:", PATH)
 
 
 db_dir = os.path.dirname(PATH)
@@ -96,5 +95,6 @@ def show_data():
     return render_template('show_data.html', data=data)
 
 if __name__ == "__main__":
+    print("Database path:", PATH)
     db()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
